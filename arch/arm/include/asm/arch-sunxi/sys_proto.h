@@ -12,5 +12,6 @@
 #include <linux/types.h>
 
 void sdelay(unsigned long);
+void sr32(void *addr, u32 start_bit, u32 num_bits, u32 value);
 
 #endif
