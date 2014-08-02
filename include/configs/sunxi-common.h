@@ -64,6 +64,42 @@
 #define CONFIG_CMDLINE_TAG
 #define CONFIG_INITRD_TAG
 
+#ifdef CONFIG_NAND
+
+#define CONFIG_LIB_RAND
+
+#define CONFIG_NAND_SUNXI		1
+
+#define CONFIG_CMD_NAND
+#define CONFIG_SYS_MAX_NAND_DEVICE      1
+#define CONFIG_SYS_NAND_BASE            0
+#define CONFIG_SUNXI_DMA
+
+#define CONFIG_RBTREE
+#define CONFIG_LZO
+#define CONFIG_MTD_DEVICE
+#define CONFIG_MTD_PARTITIONS
+#define CONFIG_CMD_MTDPARTS
+#define CONFIG_CMD_UBI
+#define CONFIG_CMD_UBIFS
+#define CONFIG_CMD_NAND_1K
+
+#define CONFIG_ENV_IS_IN_NAND
+
+#define CONFIG_ENV_OFFSET	0x500000	/* at 5MB */
+#define CONFIG_ENV_RANGE        0x300000
+
+#define CONFIG_SPL_NAND_SUPPORT
+#define CONFIG_SPL_NAND_ECC
+#define CONFIG_SPL_NAND_BASE
+#define CONFIG_SPL_NAND_DRIVERS
+#define CONFIG_SPL_DMA_SUPPORT
+#define CONFIG_SYS_NAND_U_BOOT_OFFS     0x200000
+
+#define CONFIG_SYS_NAND_PAGE_SIZE sunxi_nand_spl_page_size
+#define CONFIG_SYS_NAND_BLOCK_SIZE sunxi_nand_spl_block_size
+#endif
+
 /* mmc config */
 #define CONFIG_MMC
 #define CONFIG_GENERIC_MMC
@@ -73,8 +109,8 @@
 #define CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SYS_MMC_ENV_DEV		0	/* first detected MMC controller */
 
-/* 4MB of malloc() pool */
-#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (4 << 20))
+/* 16MB of malloc() pool */
+#define CONFIG_SYS_MALLOC_LEN		(CONFIG_ENV_SIZE + (16 << 20))
 
 /*
  * Miscellaneous configurable options
@@ -140,13 +176,7 @@
 #define CONFIG_SPL_TEXT_BASE		0x20		/* sram start+header */
 #define CONFIG_SPL_MAX_SIZE		0x5fe0		/* 24KB on sun4i/sun7i */
 
-#define CONFIG_SPL_LIBDISK_SUPPORT
-#define CONFIG_SPL_MMC_SUPPORT
-
 #define CONFIG_SPL_LDSCRIPT "arch/arm/cpu/armv7/sunxi/u-boot-spl.lds"
-
-#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR	80	/* 40KiB */
-#define CONFIG_SPL_PAD_TO		32768		/* decimal for 'dd' */
 
 #endif /* CONFIG_SPL */
 
