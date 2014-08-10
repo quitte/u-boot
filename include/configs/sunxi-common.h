@@ -101,6 +101,9 @@
 
 #define CONFIG_SYS_NAND_PAGE_SIZE sunxi_nand_spl_page_size
 #define CONFIG_SYS_NAND_BLOCK_SIZE sunxi_nand_spl_block_size
+#endif
+
+
 /* mmc config */
 #define CONFIG_MMC
 #define CONFIG_GENERIC_MMC
