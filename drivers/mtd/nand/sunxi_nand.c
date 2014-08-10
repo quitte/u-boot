@@ -576,6 +576,7 @@ int board_nand_init(struct nand_chip *nand)
 	nand->ecc.layout = &sunxi_ecclayout;
 	nand->ecc.size = (1U << chip_param->page_shift);
 	nand->ecc.bytes = 0;
+	nand->ecc.strength = 1;
 
 	// set buffer size
 	buffer_size = (1U << chip_param->page_shift) + 1024;
