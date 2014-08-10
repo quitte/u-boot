@@ -1,3 +1,10 @@
+This is a copy of mainline u-boot with yuq/rgwan sunxi mtd support patched in.
+The Cubietruck_defconfig can be built and used. However nand does not yet work properly.
+Something's going wrong with the erase block alignment. If the nand commands are aligned to the beginning of an erase block things seem to work.
+
+The support for SPL loading u-boot from NAND has been disabled
+
+
 #
 # (C) Copyright 2000 - 2013
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
