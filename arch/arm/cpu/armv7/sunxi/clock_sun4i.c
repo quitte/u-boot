@@ -59,6 +59,19 @@ void clock_init_uart(void)
 }
 
 #ifdef CONFIG_NAND_SUNXI
+/* temporarily put the sr32 function here, since it was removed upstream
+TODO: move away from sr32
+*/
+void sr32(void *addr, u32 start_bit, u32 num_bits, u32 value)
+{
+        u32 tmp, msk = 0;
+        msk = 1 << num_bits;
+        --msk;
+        tmp = readl((u32)addr) & ~(msk << start_bit);
+        tmp |= value << start_bit;
+        writel(tmp, (u32)addr);
+}
+
 void clock_init_nand()
 {
 	struct sunxi_ccm_reg *const ccm =
