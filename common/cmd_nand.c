@@ -28,7 +28,6 @@
 #include <asm/byteorder.h>
 #include <jffs2/jffs2.h>
 #include <nand.h>
-#include <packimg.h>
 
 #if defined(CONFIG_CMD_MTDPARTS)
 

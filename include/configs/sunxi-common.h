@@ -20,12 +20,40 @@
 #ifdef CONFIG_SPL_BUILD
 #ifndef CONFIG_SPL_FEL
 #define CONFIG_SYS_THUMB_BUILD	/* Thumbs mode to save space in SPL */
+#define CONFIG_SPL_NAND_BOOT
 #endif
 #endif
 
 #include <asm/arch/cpu.h>	/* get chip and board defs */
 
 #define CONFIG_SYS_TEXT_BASE		0x4a000000
+
+/*asdfljsadf*/
+#define CONFIG_SPL_NAND_BOOT
+#define CONFIG_SYS_NAND_U_BOOT_OFFS     0x200000
+#define CONFIG_SYS_NAND_U_BOOT_DST	0x44000000
+#define CONFIG_SYS_NAND_U_BOOT_SIZE	0x100000
+#define CONFIG_SYS_NAND_U_BOOT_START	0x00
+
+/*SPL configuration
+
+                CONFIG_SPL_NAND_BOOT
+                Add support NAND boot
+
+                CONFIG_SYS_NAND_U_BOOT_OFFS
+                Location in NAND to read U-Boot from
+
+                CONFIG_SYS_NAND_U_BOOT_DST
+                Location in memory to load U-Boot to
+
+                CONFIG_SYS_NAND_U_BOOT_SIZE
+                Size of image to load
+
+                CONFIG_SYS_NAND_U_BOOT_START
+                Entry point in loaded image to jump to
+
+*/
+
 
 /*
  * Display CPU information
@@ -84,21 +112,31 @@
 #define CONFIG_CMD_UBIFS
 #define CONFIG_CMD_NAND_1K
 
-#define CONFIG_ENV_IS_IN_NAND
-
-#define CONFIG_ENV_OFFSET	0x500000	/* at 5MB */
-#define CONFIG_ENV_RANGE        0x300000
-
 #define CONFIG_SPL_NAND_SUPPORT
 #define CONFIG_SPL_NAND_ECC
 #define CONFIG_SPL_NAND_BASE
 #define CONFIG_SPL_NAND_DRIVERS
 #define CONFIG_SPL_DMA_SUPPORT
-#define CONFIG_SYS_NAND_U_BOOT_OFFS     0x200000
 
 #define CONFIG_SYS_NAND_PAGE_SIZE sunxi_nand_spl_page_size
 #define CONFIG_SYS_NAND_BLOCK_SIZE sunxi_nand_spl_block_size
+
+
+#define CONFIG_ENV_IS_IN_NAND
+#define CONFIG_ENV_OFFSET	0x400000	/* at 4MB */
+#define CONFIG_ENV_SIZE		(128<<10)
+/*#define CONFIG_ENV_RANGE        0x300000*/
+#else
+#define CONFIG_ENV_IS_IN_MMC
+#define CONFIG_ENV_OFFSET		(544 << 10) /* (8 + 24 + 512) KiB */
+#define CONFIG_ENV_SIZE			(128 << 10)	/* 128 KiB */
+#define CONFIG_SPL_LIBDISK_SUPPORT
+#define CONFIG_SPL_MMC_SUPPORT
+
+#define CONFIG_SYS_MMCSD_RAW_MODE_U_BOOT_SECTOR        80      /* 40KiB */
+#define CONFIG_SPL_PAD_TO              32768           /* decimal for 'dd' */
 #endif
+
 
 /* mmc config */
 #define CONFIG_MMC
@@ -106,7 +144,6 @@
 #define CONFIG_CMD_MMC
 #define CONFIG_MMC_SUNXI
 #define CONFIG_MMC_SUNXI_SLOT		0
-#define CONFIG_ENV_IS_IN_MMC
 #define CONFIG_SYS_MMC_ENV_DEV		0	/* first detected MMC controller */
 
 /* 16MB of malloc() pool */
@@ -143,9 +180,6 @@
 
 #define CONFIG_SYS_MONITOR_LEN		(512 << 10)	/* 512 KiB */
 #define CONFIG_IDENT_STRING		" Allwinner Technology"
-
-#define CONFIG_ENV_OFFSET		(544 << 10) /* (8 + 24 + 512) KiB */
-#define CONFIG_ENV_SIZE			(128 << 10)	/* 128 KiB */
 
 #define CONFIG_EXTRA_ENV_SETTINGS \
 	"bootm_size=0x10000000\0"

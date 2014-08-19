@@ -38,6 +38,8 @@ DECLARE_GLOBAL_DATA_PTR;
  */
 u32 spl_boot_device(void)
 {
+	/*TODO:figure out a way to handle the various SPL versions*/
+	return BOOT_DEVICE_NAND;
 	return BOOT_DEVICE_MMC1;
 }
 
