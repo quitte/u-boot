@@ -34,26 +34,14 @@
 #define CONFIG_SYS_NAND_U_BOOT_DST	0x44000000
 #define CONFIG_SYS_NAND_U_BOOT_SIZE	0x100000
 #define CONFIG_SYS_NAND_U_BOOT_START	0x00
-
-/*SPL configuration
-
-                CONFIG_SPL_NAND_BOOT
-                Add support NAND boot
-
-                CONFIG_SYS_NAND_U_BOOT_OFFS
-                Location in NAND to read U-Boot from
-
-                CONFIG_SYS_NAND_U_BOOT_DST
-                Location in memory to load U-Boot to
-
-                CONFIG_SYS_NAND_U_BOOT_SIZE
-                Size of image to load
-
-                CONFIG_SYS_NAND_U_BOOT_START
-                Entry point in loaded image to jump to
-
-*/
-
+#define MTDIDS_DEFAULT "nand0=mtd-nand-sunxi.0"
+#define MTDPARTS_DEFAULT "mtdparts=mtd-nand-sunxi.0:"       \
+        "2m(spl),"                                \
+        "2m(u-boot),"                                \
+        "2m(env),"                                \
+        "2m(dtb),"                                \
+        "8m(kernel),"                                    \
+        "-(rootfs)"
 
 /*
  * Display CPU information
